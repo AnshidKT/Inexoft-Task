@@ -1,6 +1,7 @@
 import {Image, Modal, StyleSheet, Text, View} from 'react-native';
 import {TouchableWithoutFeedback} from 'react-native';
 import React, {useState} from 'react';
+import Carousel from 'react-native-snap-carousel';
 import {
   FlatList,
   ScrollView,
@@ -8,6 +9,12 @@ import {
 } from 'react-native-gesture-handler';
 import {datas, secnddatas} from './Data';
 import {useCart} from './ShopContext';
+
+const CarouselItem = ({item}) => (
+  <View style={styles.carouselItem}>
+    <Image style={styles.carouselImage} source={item.img} />
+  </View>
+);
 
 const Home = ({navigation}) => {
   const {addToCart, cartItems, user, setShowPopup, showpopup, email} =
@@ -780,6 +787,60 @@ const Home = ({navigation}) => {
         <View
           style={{
             width: '100%',
+            alignItems: 'center',
+            justifyContent: 'space-evenly',
+            flexDirection: 'row',
+            height: 300,
+            backgroundColor: 'white',
+          }}>
+          <View style={styles.card}>
+            <View
+              style={{
+                width: '109%',
+                height: 50,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
+              <Text style={styles.heading}>FAVOURITE ORDERS</Text>
+            </View>
+            <Carousel
+              style={styles.caro}
+              layout={'stack'}
+              layoutCardOffset={18}
+              data={datas}
+              sliderWidth={180}
+              itemWidth={200}
+              renderItem={CarouselItem}
+              loop={true}
+            />
+          </View>
+
+          <View style={styles.card1}>
+            <View
+              style={{
+                width: '100%',
+                height: 50,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
+              <Text style={styles.heading}> MOST FREEQUENT</Text>
+            </View>
+            <Carousel
+              style={styles.caro}
+              layout={'stack'}
+              layoutCardOffset={18}
+              data={secnddatas}
+              sliderWidth={180}
+              itemWidth={200}
+              renderItem={CarouselItem}
+              loop={true}
+            />
+          </View>
+        </View>
+
+        <View
+          style={{
+            width: '100%',
             height: 60,
             backgroundColor: 'white',
             justifyContent: 'center',
@@ -982,4 +1043,49 @@ const Home = ({navigation}) => {
 
 export default Home;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  card: {
+    width: '46%',
+    height: 220,
+    borderRadius: 15,
+    backgroundColor: 'white',
+    elevation: 7,
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+  },
+  card1: {
+    width: '46%',
+    height: 220,
+    borderRadius: 15,
+    backgroundColor: 'white',
+    elevation: 7,
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+  },
+
+  heading: {
+    fontSize: 13,
+    fontWeight: 'bold',
+    color: 'black',
+  },
+
+  carouselItem: {
+    width: 150,
+    height: 150,
+    borderRadius: 15,
+    // backgroundColor: 'lightgray',
+
+    marginLeft: 25,
+    alignItems: 'center',
+    // elevation:5,
+    justifyContent: 'center',
+  },
+  carouselImage: {
+    width: 120,
+    height: 120,
+
+    borderRadius: 15,
+  },
+});
