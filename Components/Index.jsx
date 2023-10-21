@@ -33,10 +33,10 @@ const Index = () => {
       />
 
       <Tab.Screen
-        name="MyCart"
+        name="My Cart"
         component={MyCart}
         options={{
-          tabBarLabel: 'MyCart',
+          tabBarLabel: 'My Cart',
           tabBarIcon: ({focused}) => (
             <Image
               source={

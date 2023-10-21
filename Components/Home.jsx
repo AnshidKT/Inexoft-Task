@@ -573,7 +573,7 @@ const Home = ({navigation}) => {
               color: 'black',
               fontSize: 18,
             }}>
-            Qick picks for you
+            Quick Picks For You
           </Text>
           <View
             style={{
@@ -586,7 +586,7 @@ const Home = ({navigation}) => {
               borderRadius: 30,
             }}>
             <Text style={{color: 'white', fontSize: 12}}>
-              Lowest delivery fee
+              Lowest Delivery Fee
             </Text>
           </View>
         </View>
@@ -791,7 +791,7 @@ const Home = ({navigation}) => {
               marginLeft: 20,
               fontWeight: 800,
             }}>
-            Restaurants to explore
+            Restaurants To Explore
           </Text>
         </View>
 

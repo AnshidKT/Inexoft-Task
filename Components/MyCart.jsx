@@ -73,8 +73,8 @@ const MyCart = ({navigation}) => {
         }}>
         <TouchableOpacity onPress={() => navigation.navigate('Home')}>
           <Image
-            style={{marginLeft: 20, width: 35, height: 20}}
-            source={require('../imgs/backarrow.png')}
+            style={{width: 25, marginLeft: 23, height: 25}}
+            source={require('../imgs/back.png')}
           />
         </TouchableOpacity>
         <Text

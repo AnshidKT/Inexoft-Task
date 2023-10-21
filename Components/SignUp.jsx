@@ -48,8 +48,8 @@ const SignUp = ({navigation}) => {
           }}>
           <TouchableOpacity onPress={() => navigation.navigate('Intro')}>
             <Image
-              style={{width: 35, marginLeft: 20, height: 20}}
-              source={require('../imgs/left-arrow.png')}
+              style={{width: 25, marginLeft: 50, height: 25}}
+              source={require('../imgs/back.png')}
             />
           </TouchableOpacity>
 
