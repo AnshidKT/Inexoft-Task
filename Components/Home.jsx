@@ -1,4 +1,5 @@
 import {Image, Modal, StyleSheet, Text, View} from 'react-native';
+import {TouchableWithoutFeedback} from 'react-native';
 import React, {useState} from 'react';
 import {
   FlatList,
@@ -9,17 +10,14 @@ import {datas, secnddatas} from './Data';
 import {useCart} from './ShopContext';
 
 const Home = ({navigation}) => {
-  const {addToCart, cartItems, user, email} = useCart();
+  const {addToCart, cartItems, user, setShowPopup, showpopup, email} =
+    useCart();
   console.log(cartItems);
 
   const [isModalVisible, setModalVisible] = useState(false);
-  const [scndModalVisible, setscndModalVisible] = useState(false);
 
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
-  };
-  const scndtoggleModal = () => {
-    setscndModalVisible(!scndModalVisible);
   };
 
   return (
@@ -27,330 +25,183 @@ const Home = ({navigation}) => {
       <View
         style={{
           width: '100%',
-          height: 70,
+          height: 90,
           backgroundColor: 'white',
-          justifyContent: 'space-between',
-          flexDirection: 'row',
+          justifyContent: 'flex-start',
+          flexDirection: 'column',
           alignItems: 'center',
         }}>
-        <Text
+        <View
           style={{
-            fontSize: 29,
-            letterSpacing: 5,
-            fontWeight: 'bold',
-            marginLeft: 25,
-            color: 'black',
+            width: '100%',
+            height: 70,
+            backgroundColor: 'white',
+            justifyContent: 'space-between',
+            flexDirection: 'row',
+            alignItems: 'center',
           }}>
-          INE<Text style={{color: 'orange'}}>X</Text>OFT
-        </Text>
-        <TouchableOpacity onPress={toggleModal}>
-          <View
+          <Text
             style={{
-              width: 100,
-              height: 60,
-              flexDirection: 'column',
-              // backgroundColor: 'red',
-              alignItems: 'center',
+              fontSize: 29,
+              letterSpacing: 5,
+              fontWeight: 'bold',
+              marginLeft: 25,
+              color: 'black',
             }}>
-            <Image source={require('../imgs/person.png')} />
-            
-              <Text
-                style={{
-                  fontWeight: 'bold',
-                  color: '#ff0000',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}>
-                {user}
-              </Text>
-              <Image
-                style={{width: 10, height: 10,}}
-                source={require('../imgs/down-arrow.png')}
-              />
-           
-          </View>
-        </TouchableOpacity>
+            INE<Text style={{color: 'orange'}}>X</Text>OFT
+          </Text>
 
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={isModalVisible} // Step 2: Use state variable to control visibility
-          onRequestClose={() => {
-            setModalVisible(!isModalVisible);
-          }}>
-          <View
-            style={{
-              width: '100%',
-              height: '100%',
-              backgroundColor: 'rgba(0,0,0,0.7)',
-              alignItems: 'flex-end',
-              justifyContent: 'flex-end',
-            }}>
+          <TouchableOpacity onPress={toggleModal}>
             <View
               style={{
-                width: 280,
-                height: '100%',
-                backgroundColor: 'white',
+                width: 100,
+                height: 60,
+                flexDirection: 'column',
+                // backgroundColor: 'red',
                 alignItems: 'center',
-                justifyContent: 'flex-start',
               }}>
-              <View
-                style={{
-                  width: '100%',
-                  height: 200,
-                  backgroundColor: 'yellow',
-                  alignItems: 'flex-end',
-                  justifyContent: 'space-between',
-                  flexDirection: 'row',
-                }}>
-                <Image
-                  style={{width: '100%', height: '100%', position: 'absolute'}}
-                  source={require('../imgs/drawwer-bg.png')}
-                />
-                <View
+              <Image
+                style={{objectFit: 'fill'}}
+                source={require('../imgs/person.png')}
+              />
+              <View style={{flexDirection: 'row'}}>
+                <Text
                   style={{
-                    width: '30%',
-                    height: '100%',
-                    // backgroundColor: 'black',
-                  }}>
-                  <TouchableOpacity
-                    onPress={() => navigation.navigate('Home')}
-                    style={{}}>
-                    <Image
-                      style={{
-                        marginLeft: 10,
-                        marginTop: 10,
-                        width: 25,
-                        height: 25,
-                        // backgroundColor:'#737373',
-                        // borderRadius:100
-                      }}
-                      source={require('../imgs/close.png')}
-                    />
-                  </TouchableOpacity>
-                </View>
-                <View
-                  style={{
-                    width: '70%',
-                    height: '90%',
-                    // backgroundColor: 'yellow',
-                    flexDirection: 'column',
+                    fontWeight: 'bold',
+                    color: '#737373',
                     alignItems: 'center',
                     justifyContent: 'center',
                   }}>
-                  <View
-                    style={{
-                      width: 90,
-                      height: 90,
-                      backgroundColor: 'gray',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      borderRadius: 100,
-                    }}>
-                    <Image
-                      style={{width: 60, height: 60}}
-                      source={require('../imgs/person-drawwer.png')}
-                    />
-                  </View>
-                  <Text
-                    style={{color: 'white', marginTop: 10, fontWeight: 'bold'}}>
-                    {user}
-                  </Text>
-
-                  <Text style={{color: '#cccccc', fontWeight: 'bold'}}>
-                    {email}
-                  </Text>
-                </View>
+                  {user}
+                </Text>
+                <Image
+                  style={{width: 10, height: 10, marginLeft: 3, marginTop: 5}}
+                  source={require('../imgs/down-arrow.png')}
+                />
               </View>
+            </View>
+          </TouchableOpacity>
 
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={isModalVisible}
+            onRequestClose={() => {
+              setModalVisible(!isModalVisible);
+            }}>
+            <View
+              style={{
+                width: '100%',
+                height: '100%',
+                backgroundColor: 'rgba(0,0,0,0.7)',
+                alignItems: 'flex-end',
+                justifyContent: 'flex-end',
+              }}>
               <View
                 style={{
-                  width: '100%',
-                  height: 70,
-                  borderWidth: 1,
-                  // backgroundColor: 'gray',
-                  borderBottomColor: '#f2f2f2',
+                  width: 280,
+                  height: '100%',
+                  backgroundColor: 'white',
+                  alignItems: 'center',
+                  justifyContent: 'flex-start',
                 }}>
                 <View
                   style={{
-                    width: '50%',
-                    height: '100%',
-                    // backgroundColor: 'black',
-                    alignItems: 'center',
-                    justifyContent: 'flex-start',
+                    width: '100%',
+                    height: 200,
+                    // backgroundColor: 'yellow',
+                    alignItems: 'flex-end',
+                    justifyContent: 'space-between',
                     flexDirection: 'row',
                   }}>
+                  <Image
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      position: 'absolute',
+                    }}
+                    source={require('../imgs/drawwer-bg.png')}
+                  />
+
                   <View
                     style={{
-                      width: 60,
-                      height: '100%',
-                      alignItems: 'center',
+                      width: '80%',
+                      height: '90%',
+                      // backgroundColor: 'yellow',
+                      flexDirection: 'column',
+                      alignItems: 'flex-start',
                       justifyContent: 'center',
                     }}>
-                    <Image
-                      style={{width: 30, height: 30}}
-                      source={require('../imgs/inboxxx.png')}
-                    />
-                  </View>
-                  <Text
-                    style={{color: '#262626', fontSize: 15, fontWeight: '500'}}>
-                    Inbox
-                  </Text>
-                </View>
-              </View>
+                    <View
+                      style={{
+                        width: 90,
+                        height: 90,
+                        backgroundColor: 'gray',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        borderRadius: 100,
+                        marginLeft: 10,
+                      }}>
+                      <Image
+                        style={{width: 60, height: 60}}
+                        source={require('../imgs/person-drawwer.png')}
+                      />
+                    </View>
 
-              <View
-                style={{
-                  width: '100%',
-                  height: 70,
-                  borderBottomWidth: 1,
-                  // backgroundColor: 'gray',
-                  borderBottomColor: '#f2f2f2',
-                }}>
+                    <Text
+                      style={{
+                        color: 'white',
+                        marginTop: 10,
+                        fontWeight: 'bold',
+                        marginLeft: 10,
+                      }}>
+                      {user}
+                    </Text>
+
+                    <Text
+                      style={{
+                        color: '#cccccc',
+                        marginLeft: 10,
+                        fontWeight: 'bold',
+                      }}>
+                      {email}
+                    </Text>
+                  </View>
+
+                  <View
+                    style={{
+                      width: '20%',
+                      height: '100%',
+                      // backgroundColor: 'black',
+                      alignItems: 'flex-end',
+                    }}>
+                    <TouchableWithoutFeedback
+                      style={{zIndex: 1}}
+                      onPress={() => {
+                        console.log('Close button pressed');
+                        toggleModal();
+                      }}>
+                      <Image
+                        source={require('../imgs/close-btn.png')}
+                        style={{
+                          width: 35,
+                          height: 35,
+                          marginRight: 10,
+                          marginTop: 10,
+                        }}
+                      />
+                    </TouchableWithoutFeedback>
+                  </View>
+                </View>
+
                 <View
                   style={{
-                    width: '50%',
-                    height: '100%',
-                    // backgroundColor: 'black',
-                    alignItems: 'center',
-                    justifyContent: 'flex-start',
-                    flexDirection: 'row',
+                    width: '100%',
+                    height: 70,
+                    borderWidth: 1,
+                    // backgroundColor: 'gray',
+                    borderBottomColor: '#f2f2f2',
                   }}>
-                  <View
-                    style={{
-                      width: 60,
-                      height: '100%',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                    }}>
-                    <Image
-                      style={{width: 30, height: 30}}
-                      source={require('../imgs/Starrr.png')}
-                    />
-                  </View>
-                  <Text
-                    style={{color: '#262626', fontSize: 15, fontWeight: '500'}}>
-                    Starred
-                  </Text>
-                </View>
-              </View>
-
-              <View
-                style={{
-                  width: '100%',
-                  height: 70,
-                  borderBottomWidth: 1,
-                  // backgroundColor: 'gray',
-                  borderBottomColor: '#f2f2f2',
-                }}>
-                <View
-                  style={{
-                    width: '50%',
-                    height: '100%',
-                    // backgroundColor: 'black',
-                    alignItems: 'center',
-                    justifyContent: 'flex-start',
-                    flexDirection: 'row',
-                  }}>
-                  <View
-                    style={{
-                      width: 60,
-                      height: '100%',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                    }}>
-                    <Image
-                      style={{width: 30, height: 30}}
-                      source={require('../imgs/sent.png')}
-                    />
-                  </View>
-                  <Text
-                    style={{color: '#262626', fontSize: 15, fontWeight: '500'}}>
-                    Sent email
-                  </Text>
-                </View>
-              </View>
-
-              <View
-                style={{
-                  width: '100%',
-                  height: 70,
-                  borderBottomWidth: 1,
-                  // backgroundColor: 'gray',
-                  borderBottomColor: '#f2f2f2',
-                }}>
-                <View
-                  style={{
-                    width: '50%',
-                    height: '100%',
-                    // backgroundColor: 'black',
-                    alignItems: 'center',
-                    justifyContent: 'flex-start',
-                    flexDirection: 'row',
-                  }}>
-                  <View
-                    style={{
-                      width: 60,
-                      height: '100%',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                    }}>
-                    <Image
-                      style={{width: 30, height: 30}}
-                      source={require('../imgs/draft.png')}
-                    />
-                  </View>
-                  <Text
-                    style={{color: '#262626', fontSize: 15, fontWeight: '500'}}>
-                    Drafts
-                  </Text>
-                </View>
-              </View>
-              <View
-                style={{
-                  width: '100%',
-                  height: 70,
-                  borderBottomWidth: 1,
-                  // backgroundColor: 'gray',
-                  borderBottomColor: '#f2f2f2',
-                }}>
-                <View
-                  style={{
-                    width: '50%',
-                    height: '100%',
-                    // backgroundColor: 'black',
-                    alignItems: 'center',
-                    justifyContent: 'flex-start',
-                    flexDirection: 'row',
-                  }}>
-                  <View
-                    style={{
-                      width: 60,
-                      height: '100%',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                    }}>
-                    <Image
-                      style={{width: 30, height: 30}}
-                      source={require('../imgs/spam.png')}
-                    />
-                  </View>
-                  <Text
-                    style={{color: '#262626', fontSize: 15, fontWeight: '500'}}>
-                    spam
-                  </Text>
-                </View>
-              </View>
-
-              <View
-                style={{
-                  width: '100%',
-                  height: 70,
-                  borderBottomWidth: 1,
-                  // backgroundColor: 'gray',
-                  borderBottomColor: '#f2f2f2',
-                }}>
-                <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
                   <View
                     style={{
                       width: '50%',
@@ -369,7 +220,7 @@ const Home = ({navigation}) => {
                       }}>
                       <Image
                         style={{width: 30, height: 30}}
-                        source={require('../imgs/sighnout.png')}
+                        source={require('../imgs/person-img.png')}
                       />
                     </View>
                     <Text
@@ -378,15 +229,241 @@ const Home = ({navigation}) => {
                         fontSize: 15,
                         fontWeight: '500',
                       }}>
-                      Signout
+                      Your profile
                     </Text>
                   </View>
-                </TouchableOpacity>
+                </View>
+                <TouchableWithoutFeedback
+                  onPress={() => navigation.navigate('MyCart')}>
+                  <View
+                    style={{
+                      width: '100%',
+                      height: 70,
+                      borderBottomWidth: 1,
+                      // backgroundColor: 'gray',
+                      borderBottomColor: '#f2f2f2',
+                    }}>
+                    <View
+                      style={{
+                        width: '50%',
+                        height: '100%',
+                        // backgroundColor: 'black',
+                        alignItems: 'center',
+                        justifyContent: 'flex-start',
+                        flexDirection: 'row',
+                      }}>
+                      <View
+                        style={{
+                          width: 60,
+                          height: '100%',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                        }}>
+                        <Image
+                          style={{width: 30, height: 30}}
+                          source={require('../imgs/order-img.png')}
+                        />
+                      </View>
+                      <Text
+                        style={{
+                          color: '#262626',
+                          fontSize: 15,
+                          fontWeight: '500',
+                        }}>
+                        Your orders
+                      </Text>
+                    </View>
+                  </View>
+                </TouchableWithoutFeedback>
+                <View
+                  style={{
+                    width: '100%',
+                    height: 70,
+                    borderBottomWidth: 1,
+                    // backgroundColor: 'gray',
+                    borderBottomColor: '#f2f2f2',
+                  }}>
+                  <View
+                    style={{
+                      width: '50%',
+                      height: '100%',
+                      // backgroundColor: 'black',
+                      alignItems: 'center',
+                      justifyContent: 'flex-start',
+                      flexDirection: 'row',
+                    }}>
+                    <View
+                      style={{
+                        width: 60,
+                        height: '100%',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                      }}>
+                      <Image
+                        style={{width: 30, height: 30}}
+                        source={require('../imgs/favourite.png')}
+                      />
+                    </View>
+                    <Text
+                      style={{
+                        color: '#262626',
+                        fontSize: 15,
+                        fontWeight: '500',
+                      }}>
+                      Favourite orders
+                    </Text>
+                  </View>
+                </View>
+
+                <View
+                  style={{
+                    width: '100%',
+                    height: 70,
+                    borderBottomWidth: 1,
+                    // backgroundColor: 'gray',
+                    borderBottomColor: '#f2f2f2',
+                  }}>
+                  <View
+                    style={{
+                      width: '50%',
+                      height: '100%',
+                      // backgroundColor: 'black',
+                      alignItems: 'center',
+                      justifyContent: 'flex-start',
+                      flexDirection: 'row',
+                    }}>
+                    <View
+                      style={{
+                        width: 60,
+                        height: '100%',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                      }}>
+                      <Image
+                        style={{width: 30, height: 30}}
+                        source={require('../imgs/hidden.png')}
+                      />
+                    </View>
+                    <Text
+                      style={{
+                        color: '#262626',
+                        fontSize: 15,
+                        fontWeight: '500',
+                      }}>
+                      Hidden restaurants
+                    </Text>
+                  </View>
+                </View>
+                <View
+                  style={{
+                    width: '100%',
+                    height: 70,
+                    borderBottomWidth: 1,
+                    // backgroundColor: 'gray',
+                    borderBottomColor: '#f2f2f2',
+                  }}>
+                  <View
+                    style={{
+                      width: '50%',
+                      height: '100%',
+                      // backgroundColor: 'black',
+                      alignItems: 'center',
+                      justifyContent: 'flex-start',
+                      flexDirection: 'row',
+                    }}>
+                    <View
+                      style={{
+                        width: 60,
+                        height: '100%',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                      }}>
+                      <Image
+                        style={{width: 30, height: 30}}
+                        source={require('../imgs/credit.png')}
+                      />
+                    </View>
+                    <Text
+                      style={{
+                        color: '#262626',
+                        fontSize: 15,
+                        fontWeight: '500',
+                      }}>
+                      Inexoft credits
+                    </Text>
+                  </View>
+                </View>
+
+                <View
+                  style={{
+                    width: '100%',
+                    height: 70,
+                    borderBottomWidth: 1,
+                    // backgroundColor: 'gray',
+                    borderBottomColor: '#f2f2f2',
+                  }}>
+                  <TouchableWithoutFeedback
+                    onPress={() => navigation.navigate('SignUp')}>
+                    <View
+                      style={{
+                        width: '50%',
+                        height: '100%',
+                        // backgroundColor: 'black',
+                        alignItems: 'center',
+                        justifyContent: 'flex-start',
+                        flexDirection: 'row',
+                      }}>
+                      <View
+                        style={{
+                          width: 60,
+                          height: '100%',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                        }}>
+                        <Image
+                          style={{width: 30, height: 30}}
+                          source={require('../imgs/sighnout.png')}
+                        />
+                      </View>
+                      <Text
+                        style={{
+                          color: '#262626',
+                          fontSize: 15,
+                          fontWeight: '500',
+                        }}>
+                        Signout
+                      </Text>
+                    </View>
+                  </TouchableWithoutFeedback>
+                </View>
               </View>
             </View>
+          </Modal>
+        </View>
+
+        {showpopup ? (
+          <View
+            style={{
+              width: '45%',
+              height: 20,
+              // backgroundColor: '#e6ffe6',
+              // borderRadius:9,
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'center',
+              marginTop: -10,
+            }}>
+            <Image
+              style={{width: 18, height: 18, marginRight: 8}}
+              source={require('../imgs/Cart-Green.png')}
+            />
+            <Text style={{color: '#00b3b3', fontWeight: 'bold'}}>
+              Added To Cart
+            </Text>
           </View>
-        </Modal>
+        ) : null}
       </View>
+
       <ScrollView>
         <View
           style={{
@@ -513,120 +590,152 @@ const Home = ({navigation}) => {
             </Text>
           </View>
         </View>
-
-        <FlatList
-          numColumns={3}
-          data={datas}
-          style={{backgroundColor: 'white'}}
-          renderItem={({item}) => (
-            <TouchableOpacity
-              onPress={() => addToCart(item.id)}
-              style={{
-                marginTop: 0,
-                width: 110,
-                marginLeft: 3,
-                marginRight: 3,
-                height: 150,
-                borderRadius: 10,
-                backgroundColor: 'white',
-              }}>
+        <View>
+          <FlatList
+            numColumns={3}
+            data={datas}
+            style={{backgroundColor: 'white'}}
+            renderItem={({item}) => (
               <View
                 style={{
-                  width: '100%',
-                  height: '75%',
-                  backgroundColor: 'black',
-                  borderRadius: 10,
-                  opacity: 1.1,
+                  flex: 1,
+                  justifyContent: 'center', // Center vertically
+                  alignItems: 'center', // Center horizontally
+                  padding: 10,
                 }}>
-                <Image
+                <TouchableOpacity
+                  onPress={() => addToCart(item.id)}
                   style={{
-                    position: 'absolute',
-                    width: '100%',
-                    height: '100%',
-                    borderRadius: 20,
-                    opacity: 0.7,
-                    // backgroundColor: 'black',
-                  }}
-                  source={item.img}
-                />
-                <View
-                  style={{
-                    justifyContent: 'space-between',
-                    width: '100%',
-                    height: '100%',
+                    marginTop: 0,
+                    width: 110,
+                    // marginLeft: 0,
+                    // marginRight: 0,
 
-                    borderRadius: 20,
+                    height: 150,
+                    borderRadius: 10,
+                    backgroundColor: 'white',
                   }}>
                   <View
                     style={{
                       width: '100%',
-                      height: '30%',
-                      flexDirection: 'row',
-                      justifyContent: 'flex-end',
-                      alignItems: 'center',
+                      height: '75%',
+                      backgroundColor: 'black',
+                      borderRadius: 10,
+                      opacity: 1.1,
                     }}>
-                    <Image style={{marginRight: 7}} source={item.love} />
+                    <Image
+                      style={{
+                        position: 'absolute',
+                        width: '100%',
+                        height: '100%',
+                        borderRadius: 20,
+                        opacity: 0.7,
+                        // backgroundColor: 'black',
+                      }}
+                      source={item.img}
+                    />
+                    <View
+                      style={{
+                        justifyContent: 'space-between',
+                        width: '100%',
+                        height: '100%',
+
+                        borderRadius: 20,
+                      }}>
+                      <View
+                        style={{
+                          width: '100%',
+                          height: '30%',
+                          flexDirection: 'row',
+                          justifyContent: 'flex-end',
+                          alignItems: 'center',
+                        }}>
+                        <Image style={{marginRight: 7}} source={item.love} />
+                      </View>
+                      <View
+                        style={{
+                          width: '100%',
+                          height: '50%',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                        }}>
+                        <Text
+                          style={{
+                            color: 'white',
+                            fontSize: 18,
+                            fontWeight: 800,
+                          }}>
+                          {item.offer}
+                        </Text>
+                        <Text
+                          style={{
+                            color: 'white',
+                            fontWeight: 400,
+                            fontSize: 10,
+                          }}>
+                          {item.upto}
+                        </Text>
+                      </View>
+                    </View>
                   </View>
+
                   <View
                     style={{
                       width: '100%',
-                      height: '50%',
-                      alignItems: 'center',
-                      justifyContent: 'center',
+                      height: '20%',
+                      // backgroundColor: 'yellow',
                     }}>
                     <Text
-                      style={{color: 'white', fontSize: 18, fontWeight: 800}}>
-                      {item.offer}
+                      style={{
+                        textAlign: 'center',
+                        fontWeight: 600,
+                        color: 'black',
+                        fontSize: 14,
+                      }}>
+                      {item.name}
                     </Text>
-                    <Text
-                      style={{color: 'white', fontWeight: 400, fontSize: 10}}>
-                      {item.upto}
-                    </Text>
-                  </View>
-                </View>
-              </View>
-              <View
-                style={{
-                  width: '100%',
-                  height: '20%',
-                  // backgroundColor: 'yellow',
-                }}>
-                <Text
-                  style={{
-                    textAlign: 'center',
-                    fontWeight: 600,
-                    color: 'black',
-                    fontSize: 14,
-                  }}>
-                  {item.name}
-                </Text>
-                <View
-                  style={{
-                    width: '100%',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    flexDirection: 'row',
-                  }}>
-                  <View
-                    style={{
-                      width: '50%',
-                      justifyContent: 'space-evenly',
-                      flexDirection: 'row',
-                    }}>
-                    <Image style={{width: 11, height: 11}} source={item.star} />
-                    <Image style={{width: 11, height: 11}} source={item.star} />
-                    <Image style={{width: 11, height: 11}} source={item.star} />
-                    <Image style={{width: 11, height: 11}} source={item.star} />
-                  </View>
+                    <View
+                      style={{
+                        width: '100%',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        flexDirection: 'row',
+                      }}>
+                      <View
+                        style={{
+                          width: '50%',
+                          justifyContent: 'space-evenly',
+                          flexDirection: 'row',
+                        }}>
+                        <Image
+                          style={{width: 11, height: 11}}
+                          source={item.star}
+                        />
+                        <Image
+                          style={{width: 11, height: 11}}
+                          source={item.star}
+                        />
+                        <Image
+                          style={{width: 11, height: 11}}
+                          source={item.star}
+                        />
+                        <Image
+                          style={{width: 11, height: 11}}
+                          source={item.star}
+                        />
+                      </View>
 
-                  <Text style={{color: 'black', fontSize: 11, fontWeight: 500}}>
-                    {item.rating}
-                  </Text>
-                </View>
+                      <Text
+                        style={{color: 'black', fontSize: 11, fontWeight: 500}}>
+                        {item.rating}
+                      </Text>
+                    </View>
+                  </View>
+                </TouchableOpacity>
               </View>
-            </TouchableOpacity>
-          )}
-        />
+            )}
+          />
+        </View>
 
         <View
           style={{

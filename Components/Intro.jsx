@@ -29,12 +29,12 @@ const Intro = ({navigation}) => {
           style={{
             color: 'white',
             fontSize: 35,
-            letterSpacing:8,
+            letterSpacing: 8,
             fontFamily: 'monospace',
-            
+
             fontWeight: '900',
             marginBottom: 80,
-            marginTop:10
+            marginTop: 10,
           }}>
           INE<Text style={{color: 'orange'}}>XOFT</Text>
         </Text>

@@ -8,15 +8,20 @@ export const CartContext = createContext();
 const allProdects = [...datas, ...secnddatas];
 
 export const CartProvider = ({children}) => {
-    const [user, setUser] = useState('');
-const [email,setEmail]=useState('')
-const [password,setPassword]=useState('')
-
-
+  const [user, setUser] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const [cartItems, setCartItems] = useState([]);
 
+  const [showpopup, setShowPopup] = useState(false);
+
   const addToCart = productId => {
+    setShowPopup(true);
+    setTimeout(() => {
+      setShowPopup(false);
+    }, 1000);
+
     const productToAdd = allProdects.find(product => product.id === productId);
 
     if (productToAdd) {
@@ -66,7 +71,7 @@ const [password,setPassword]=useState('')
     }
   };
 
-  // Function to retrieve cart data from AsyncStorage
+  //  AsyncStorage
   const retrieveCartFromAsyncStorage = async () => {
     try {
       const storedCart = await AsyncStorage.getItem('@MyCart:key');
@@ -79,12 +84,10 @@ const [password,setPassword]=useState('')
   };
 
   // localstorage
-  // Load cart data from AsyncStorage when the component mounts
   useEffect(() => {
     retrieveCartFromAsyncStorage();
   }, []);
 
-  // Save cart data to AsyncStorage whenever the cartItems state changes
   useEffect(() => {
     saveCartToAsyncStorage();
   }, [cartItems]);
@@ -103,7 +106,9 @@ const [password,setPassword]=useState('')
         email,
         setEmail,
         setPassword,
-        password
+        password,
+        setShowPopup,
+        showpopup,
       }}>
       {children}
     </CartContext.Provider>
