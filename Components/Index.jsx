@@ -12,7 +12,6 @@ const Index = () => {
       <Tab.Screen name="Home" component={Home} />
       <Tab.Screen name="MyCart" component={MyCart} />
     </Tab.Navigator>
-    
   );
 };
 

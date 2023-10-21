@@ -9,6 +9,11 @@ const allProdects = [...datas, ...secnddatas];
 
 export const CartProvider = ({children}) => {
     const [user, setUser] = useState('');
+const [email,setEmail]=useState('')
+const [password,setPassword]=useState('')
+
+
+
   const [cartItems, setCartItems] = useState([]);
 
   const addToCart = productId => {
@@ -95,6 +100,10 @@ export const CartProvider = ({children}) => {
         totalAmount,
         user,
         setUser,
+        email,
+        setEmail,
+        setPassword,
+        password
       }}>
       {children}
     </CartContext.Provider>

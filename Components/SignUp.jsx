@@ -3,15 +3,31 @@ import React from 'react';
 import {TextInput} from 'react-native-gesture-handler';
 import {useCart} from './ShopContext';
 const SignUp = ({navigation}) => {
-  const {setUser, user} = useCart()
+  const {setUser, user, email, setPassword, password, setEmail} = useCart();
+
   const handleInputChange = text => {
-    setUser(text); // Use 'setUser' to update 'user'
+    setUser(text);
     console.log(user);
   };
-  // const handlesubmit=()=>{
 
-  //   navigation.navigate('Index')
-  // }
+  const handleInputChangeemail = text => {
+    setEmail(text);
+    console.log(email);
+  };
+  const handleInputChangepassword = text => {
+    setPassword(text);
+    console.log(password);
+  };
+
+  const handleSignUp = () => {
+    if (user && email && password) {
+      // Check if user and email are not empty
+      // Perform your sign-up logic here
+      navigation.navigate('Index');
+    } else {
+      alert('Please fill in all fields');
+    }
+  };
 
   return (
     <View>
@@ -71,16 +87,15 @@ const SignUp = ({navigation}) => {
               borderRadius: 20,
               alignItems: 'center',
               flexDirection: 'row',
-             
             }}>
             <Image
               style={{width: 25, height: 25, marginLeft: 20}}
               source={require('../imgs/person.png')}
             />
             <TextInput
-              style={{marginLeft: 10, color:'black',width: '80%'}}
+              style={{marginLeft: 10, color: 'black', width: '80%'}}
               placeholder="Username"
-              placeholderTextColor='gray'
+              placeholderTextColor="gray"
               name="username"
               onChangeText={handleInputChange}
               value={user}
@@ -101,10 +116,12 @@ const SignUp = ({navigation}) => {
               source={require('../imgs/email.png')}
             />
             <TextInput
-              style={{marginLeft: 10,color:'black', width: '80%'}}
+              style={{marginLeft: 10, color: 'black', width: '80%'}}
               placeholder="Email"
               placeholderTextColor="gray"
-              
+              name="Email"
+              onChangeText={handleInputChangeemail}
+              value={email}
             />
           </View>
 
@@ -123,9 +140,12 @@ const SignUp = ({navigation}) => {
               source={require('../imgs/lock.png')}
             />
             <TextInput
-              style={{marginLeft: 10, color:'black',width: '80%'}}
+              style={{marginLeft: 10, color: 'black', width: '80%'}}
               placeholder="Password"
               placeholderTextColor="gray"
+              secureTextEntry={true}
+              value={password}
+              onChangeText={handleInputChangepassword}
             />
           </View>
 
@@ -141,7 +161,7 @@ const SignUp = ({navigation}) => {
               alignItems: 'center',
               justifyContent: 'center',
             }}
-            onPress={() => navigation.navigate('Index')}>
+            onPress={handleSignUp}>
             <View
               style={{
                 width: '80%',
